@@ -16,7 +16,6 @@ $(function() {
 let seqArray = []
 
 function attachListeners() {
-
 	$('#start').click(function(event) {
 		sequence();
 	});
@@ -28,14 +27,30 @@ function sequence() {
 			var random = randomIntFromInterval(1, 4)
     	seqArray.push(random);
 		};
+	} else {
+		var random = randomIntFromInterval(1, 4)
+		seqArray.push(random);
 	};
-	console.log(seqArray)
+	setupTheFlash()
 };
 
 function randomIntFromInterval(min,max) {
-    return Math.floor(Math.random()*(max-min+1)+min);
+  return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-function tester() {
+function setupTheFlash() {
+	console.log(seqArray)
+	for (var i = 0; i < seqArray.length; i++) {
+		flash(i, seqArray[i])
+	}
+};
 
+function flash(i, id) {
+	setTimeout(function() {
+		var idSelector = '#' + (id-1)
+		$(idSelector).addClass('light')
+		setTimeout(function() {
+			$(idSelector).removeClass('light')
+		}, 500)
+	}, i*1000)
 }

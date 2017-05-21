@@ -83,11 +83,8 @@ html, body, div, span, applet, object, iframe,
 html{
  background-image: url('http://cdn.backgroundhost.com/backgrounds/subtlepatterns/retina_wood.png');
 }
--------------------------------
 
 
-
--------------------------------
 .inline{
   display: inline-block;
 }
