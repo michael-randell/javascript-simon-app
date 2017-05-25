@@ -40,12 +40,12 @@ function randomIntFromInterval(min,max) {
 }
 
 function setupTheFlash() {
-
+	let timer = seqArray.length * 1000
 
 	for (var i = 0; i < seqArray.length; i++) {
 		flash(i, seqArray[i])
 	}
-	userTurn()
+	userTurn(timer)
 };
 
 function flash(i, id) {
