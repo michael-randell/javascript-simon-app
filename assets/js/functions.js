@@ -14,6 +14,7 @@ $(function() {
 });
 
 let seqArray = []
+let buttonsCache = []
 
 function attachListeners() {
 	$('#start').click(function(event) {
@@ -39,10 +40,12 @@ function randomIntFromInterval(min,max) {
 }
 
 function setupTheFlash() {
-	console.log(seqArray)
+
+
 	for (var i = 0; i < seqArray.length; i++) {
 		flash(i, seqArray[i])
 	}
+	userTurn()
 };
 
 function flash(i, id) {
@@ -53,4 +56,36 @@ function flash(i, id) {
 			$(idSelector).removeClass('light')
 		}, 500)
 	}, i*1000)
+}
+
+function grabButtons() {
+	//buttonsCache = $('.push')
+	if (!(buttonsCache.length === 0)) {
+		return buttonsCache
+	} else {
+		buttonsCache = $('.push')
+		return buttonsCache
+	}
+}
+
+function buttonsClickable() {
+	buttonsCache.removeClass('unclickable').addClass('clickable')
+
+	//$.each(buttonsCache, function(i, button) {
+	//	debugger;
+	//	button.switchClass('unclickable', 'clickable')
+	//})
+
+	//for(var i = 0; i < buttonsCache.length; i++) {
+	//	debugger;
+	//	buttonsCache[i].switchClass('unclickable', 'clickable')
+	//}
+}
+
+function userTurn(timer) {
+	grabButtons()
+	setTimeout(function() {
+		buttonsClickable()
+	}, timer)
+	//buttonsClickable()
 }
