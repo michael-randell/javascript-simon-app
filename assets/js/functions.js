@@ -13,8 +13,9 @@ $(function() {
 	attachListeners();
 });
 
-let seqArray = []
-let buttonsCache = []
+let seqArray = [];
+let userArray = [];
+let buttonsCache = [];
 
 function attachListeners() {
 	$('#start').click(function(event) {
@@ -37,14 +38,19 @@ function sequence() {
 
 function randomIntFromInterval(min,max) {
   return Math.floor(Math.random()*(max-min+1)+min);
-}
+};
+
+function resetGame() {
+	seqArray = [];
+	userArray = [];
+};
 
 function setupTheFlash() {
-	let timer = seqArray.length * 1000
+	let timer = seqArray.length * 1000;
 
 	for (var i = 0; i < seqArray.length; i++) {
 		flash(i, seqArray[i])
-	}
+	};
 	userTurn(timer)
 };
 
@@ -55,21 +61,52 @@ function flash(i, id) {
 		setTimeout(function() {
 			$(idSelector).removeClass('light')
 		}, 500)
-	}, i*1000)
-}
+	}, i*1000);
+};
 
 function grabButtons() {
-	//buttonsCache = $('.push')
 	if (!(buttonsCache.length === 0)) {
 		return buttonsCache
 	} else {
-		buttonsCache = $('.push')
+		buttonsCache = $('.push');
 		return buttonsCache
-	}
-}
+	};
+};
 
 function buttonsClickable() {
-	buttonsCache.removeClass('unclickable').addClass('clickable')
+	buttonsCache.removeClass('unclickable').addClass('clickable');
+	buttonsCache.unbind("click").click(function() {
+		var button = $(this).attr('id');
+		var buttonId = parseInt(button)+1;
+		userArray.push(buttonId);
+
+		if(seqArray[userArray.length-1] !== buttonId) {
+			error()
+		} else if (seqArray.length === userArray.length) {
+				console.log('next, equals')
+				userArray = []
+				sequence()
+		}
+		console.log(seqArray)
+		console.log(userArray)
+	});
+}
+
+	function error() {
+		var wrongButtonId = '#' + (seqArray[userArray.length-1]-1);
+		var repeatThree = [1,2,3];
+
+		repeatThree.forEach(function(i) {
+			setTimeout(function() {
+				$(wrongButtonId).addClass('light')
+				setTimeout(function() {
+					$(wrongButtonId).removeClass('light')
+				}, 400)
+			}, i*800)
+		});
+		resetGame()
+	};
+
 
 	//$.each(buttonsCache, function(i, button) {
 	//	debugger;
@@ -80,10 +117,12 @@ function buttonsClickable() {
 	//	debugger;
 	//	buttonsCache[i].switchClass('unclickable', 'clickable')
 	//}
-}
+
 
 function userTurn(timer) {
-	grabButtons()
+
+		grabButtons()
+
 	setTimeout(function() {
 		buttonsClickable()
 	}, timer)
