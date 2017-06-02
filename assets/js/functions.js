@@ -75,7 +75,7 @@ function grabButtons() {
 
 function buttonsClickable() {
 	buttonsCache.removeClass('unclickable').addClass('clickable');
-	buttonsCache.unbind("click").click(function() {
+	//buttonsCache.unbind("click").click(function() {
 		var button = $(this).attr('id');
 		var buttonId = parseInt(button)+1;
 		userArray.push(buttonId);
@@ -89,7 +89,7 @@ function buttonsClickable() {
 		}
 		console.log(seqArray)
 		console.log(userArray)
-	});
+	//});
 }
 
 	function error() {
