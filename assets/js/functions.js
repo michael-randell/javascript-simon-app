@@ -87,44 +87,27 @@ function buttonsClickable() {
 				userArray = []
 				sequence()
 		}
-		console.log(seqArray)
-		console.log(userArray)
 	});
 }
 
-	function error() {
-		var wrongButtonId = '#' + (seqArray[userArray.length-1]-1);
-		var repeatThree = [1,2,3];
-
-		repeatThree.forEach(function(i) {
+function error() {
+	var wrongButtonId = '#' + (seqArray[userArray.length-1]-1);
+	var repeatThree = [1,2,3];
+	repeatThree.forEach(function(i) {
+		setTimeout(function() {
+			$(wrongButtonId).addClass('light')
 			setTimeout(function() {
-				$(wrongButtonId).addClass('light')
-				setTimeout(function() {
-					$(wrongButtonId).removeClass('light')
-				}, 400)
-			}, i*800)
-		});
-		resetGame()
-	};
-
-
-	//$.each(buttonsCache, function(i, button) {
-	//	debugger;
-	//	button.switchClass('unclickable', 'clickable')
-	//})
-
-	//for(var i = 0; i < buttonsCache.length; i++) {
-	//	debugger;
-	//	buttonsCache[i].switchClass('unclickable', 'clickable')
-	//}
-
+				$(wrongButtonId).removeClass('light')
+			}, 400)
+		}, i*800)
+	});
+	resetGame()
+};
 
 function userTurn(timer) {
-
-		grabButtons()
+	grabButtons()
 
 	setTimeout(function() {
 		buttonsClickable()
 	}, timer)
-	//buttonsClickable()
-}
+};
